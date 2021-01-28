@@ -4,11 +4,52 @@
 package com.ithwang.wowassistant;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
-    }
+
+
+  public static void main(String[] args) {
+    System.out.println("===================================================");
+    System.out.println("================== WOW ASSISTANT ==================");
+    System.out.println("===================================================");
+
+    loop:
+      while (true) {
+        String command = Prompt.inputString("명령을 입력하세요(도움말: help, 종료: exit OR quit)");
+        System.out.println();
+        switch(command.toLowerCase()) {
+          case "/member/add": MemberHandler.add(); break;
+          case "/member/list": MemberHandler.list(); break;
+          case "/character/add": CharacterHandler.add(); break;
+          case "/character/list": CharacterHandler.list(); break;
+          case "/productrecipe/add": ProductRecipeHandler.add(); break;
+          case "/productrecipe/list": ProductRecipeHandler.list(); break;
+
+
+          case "help": help(); break; 
+          case "exit":
+          case "quit":
+            System.out.println("사용해주셔서 감사합니다.");
+            break loop;
+          default:
+            System.out.println("실행할 수 없는 명령입니다.");
+        }
+        // 이전 명령의 실행을 구분하기 위해 빈줄 출력
+        System.out.println();
+      }
+
+    Prompt.close(); 
+  }
+
+  public static void help() {
+    System.out.println("[명령어 모음]");
+    System.out.println("<기능명>              <명령어>");
+    System.out.println("----------------------------------------------------------------");
+    System.out.println("회원 등록                    /member/add");
+    System.out.println("회원 목록 보기               /member/list");
+    System.out.println("케릭터 등록                  /character/add");
+    System.out.println("케릭터 목록 보기             /character/list");
+    System.out.println("제작품 레시피 등록           /productrecipe/add");
+    System.out.println("제작품 레시피 목록 보기      /productrecipe/list");
+    //    System.out.println("경매장에서 돈벌기            /productrecipe/makeMoneyInAuction");
+  }
 }
